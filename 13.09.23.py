@@ -217,7 +217,7 @@ else:
 # Области. Задача 7
 
 
-x, y = map(float, input().split(""))
+x, y = map(float, input().split())
 
 if x >= 2:
     print("Yes")
@@ -225,6 +225,7 @@ elif 0.5 <= y <= 1.5:
     print("Yes")
 else:
     print("No")
+
 
 
 
