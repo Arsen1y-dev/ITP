@@ -253,20 +253,20 @@
 #
 #
 
-#n = int(input())
-#m = int(input())
-#x = int(input())
-#y = int(input())
-#
-## Рассчитываем четыре возможных пути
-#path1 = min(x, y, n - x, m - y)
-#path2 = min(x, m - y, n - x, y)
-#
-## Находим минимальное расстояние
-#min_path = min(path1, path2)
-#
-## Выводим результат
-#print(min_path)
+n = int(input()) 
+m = int(input()) 
+x = int(input())  
+y = int(input()) 
+
+#  минимальное расстояние до ближайшей стены (вертикальной или горизонтальной)
+vertical = min(x, n - x)
+horizontal = min(y, m - y)
+
+# минимальное расстояние между вертикальной и горизонтальной стеной
+min_path = min(vertical, horizontal)
+
+print(min_path)
+
 #
 #
 ## Сундук с сокровищами
