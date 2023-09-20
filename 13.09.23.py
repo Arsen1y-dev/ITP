@@ -253,36 +253,37 @@
 #
 #
 
-n = int(input()) 
-m = int(input()) 
-x = int(input())  
-y = int(input()) 
-
-#  минимальное расстояние до ближайшей стены (вертикальной или горизонтальной)
-vertical = min(x, n - x)
-horizontal = min(y, m - y)
-
-# минимальное расстояние между вертикальной и горизонтальной стеной
-min_path = min(vertical, horizontal)
-
-print(min_path)
+# n = int(input()) 
+# m = int(input()) 
+# x = int(input()) 
+# y = int(input()) 
+# 
+# len_short = min(n, m) 
+# len_long = max(n, m) 
+# 
+# dist_to_short = min(x, len_short - x) 
+# dist_to_long = min(y, len_long - y) 
+# 
+# print(min(dist_to_short, dist_to_long)) 
 
 #
 #
 ## Сундук с сокровищами
 #
 #
-## Ввод размеров сундука и размера иллюминатора
-#a = int(input())
-#b = int(input())
-#c = int(input())
-#d = int(input())
-#
-## Проверка условия
-#if a <= d and b <= d and c <= d:
-#    print("Yes")
-#else:
-#    print("No")
+# a = int(input()) 
+# b = int(input()) 
+# c = int(input()) 
+# d = int(input()) ** 2 
+# 
+# diag1 = a ** 2 + b ** 2 
+# diag2 = a ** 2 + c ** 2 
+# diag3 = b ** 2 + c ** 2 
+# 
+# if diag1 <= d or diag2 <= d or diag3 <= d: 
+#     print("Yes") 
+# else: 
+#     print("No") 
 #
 #
 #
@@ -291,16 +292,16 @@ print(min_path)
 #
 #k = int(input())
 #
-#if 11 <= k <= 14:
-#    print(f"Мне {k} лет")
-#else:
-#    last_digit = k % 10
-#    if last_digit == 1:
-#        print(f"Мне {k} год")
-#    elif 2 <= last_digit <= 4:
-#        print(f"Мне {k} года")
-#    else:
-#        print(f"Мне {k} лет")
+# k = int(input()) 
+# 
+# if 10 <= (k % 100) <= 19: 
+#     print(f"Мне {k} лет") 
+# elif k % 10 == 1: 
+#     print(f"Мне {k} год") 
+# elif 2 <= (k % 10) <= 4: 
+#     print(f"Мне {k} года") 
+# else: 
+#     print(f"Мне {k} лет")
 #
 #
 #
