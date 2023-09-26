@@ -55,6 +55,7 @@
 #    print('0')
 #
 #
+#
 ## Области. Задача 7 (4)
 #
 #
@@ -69,10 +70,9 @@
 #
 #
 #
-#
 # Улитка на координатной прямой (5)
-
-
+#
+#
 #s = input().split()
 #x1 = int(s[0])
 #x2 = int(s[1])
@@ -91,7 +91,6 @@
 ## Бассейн (6)
 #
 #
-
 # n = int(input()) 
 # m = int(input()) 
 # x = int(input()) 
@@ -104,7 +103,7 @@
 # dist_to_long = min(y, len_long - y) 
 # 
 # print(min(dist_to_short, dist_to_long)) 
-
+#
 #
 #
 ## Сундук с сокровищами (7)
@@ -126,18 +125,16 @@
 #
 #
 #
-## Возраст (8)
-#
-#
-#k = int(input())
-#
-# k = int(input()) 
-# 
-# if 10 <= (k % 100) <= 19: 
-#     print(f"Мне {k} лет") 
-# elif k % 10 == 1: 
-#     print(f"Мне {k} год") 
-# elif 2 <= (k % 10) <= 4: 
-#     print(f"Мне {k} года") 
-# else: 
-#     print(f"Мне {k} лет")
+# Возраст (8)
+
+
+k = int(input())
+ 
+if 10 <= (k % 100) <= 19: 
+    print(f"Мне {k} лет") 
+elif k % 10 == 1: 
+    print(f"Мне {k} год") 
+elif 2 <= (k % 10) <= 4: 
+    print(f"Мне {k} года") 
+else: 
+    print(f"Мне {k} лет")
