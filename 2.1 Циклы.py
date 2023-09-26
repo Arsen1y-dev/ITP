@@ -157,7 +157,37 @@
 ## Анализ последовательности чисел (7)
 #
 #
+prev_num = int(input())
+current_num = int(input())
 
+if prev_num < current_num:
+    sequence_type = "ASCENDING"
+elif prev_num > current_num:
+    sequence_type = "DESCENDING"
+else:
+    sequence_type = "CONSTANT"
+
+prev_num = current_num
+
+while True:
+    current_num = int(input())
+    if current_num == -2 * 10**9:
+        break
+
+    if prev_num < current_num:
+        if sequence_type == "DESCENDING":
+            sequence_type = "RANDOM"
+        elif sequence_type == "CONSTANT" or sequence_type == "WEAKLY DESCENDING":
+            sequence_type = "WEAKLY ASCENDING"
+    elif prev_num > current_num:
+        if sequence_type == "ASCENDING":
+            sequence_type = "RANDOM"
+        elif sequence_type == "CONSTANT" or sequence_type == "WEAKLY ASCENDING":
+            sequence_type = "WEAKLY DESCENDING"
+
+    prev_num = current_num
+
+print(sequence_type)
 #
 #
 #
