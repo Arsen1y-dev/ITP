@@ -26,3 +26,25 @@ for num in range(a, b + 1):
         result = max(result, num)
 
 print(result)
+#
+#
+#
+## Вложенные циклы. Задача 1.1 (2)
+#
+#
+# Функция для проверки числа на простоту
+def is_prime(num):
+    if num <= 1:
+        return False
+    for i in range(2, int(num**0.5) + 1):
+        if num % i == 0:
+            return False
+    return True
+
+A, B = map(int, input().split())
+
+
+for number in range(A, B + 1):
+    if is_prime(number):
+        print(number, end=' ')
+
