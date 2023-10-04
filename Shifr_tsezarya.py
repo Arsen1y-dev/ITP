@@ -16,3 +16,5 @@ text_to_encrypt = "Скфрп- ржкп кй увоэч срсхнбтпэч б�
 shift = 2
 encrypted_text = caesar_cipher(text_to_encrypt, shift)
 print("Зашифрованный текст:", encrypted_text)
+
+
