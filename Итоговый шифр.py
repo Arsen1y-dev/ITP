@@ -51,8 +51,9 @@ def encrypt_message(input_file, output_file, offset):
     except Exception as e:
         print("Произошла ошибка:", str(e))
 
-# Пример использования
 input_file = "qws.txt"  # Замените на имя вашего входного файла
-output_file = "encrypted_message8.txt"  # Замените на имя файла для сохранения зашифрованного сообщения
+output_file = "encrypted_message8.bin"  # Замените на имя файла для сохранения зашифрованного сообщения
 offset = 5  # Замените на ваше собственное смещение
 encrypt_message(input_file, output_file, offset)
+
+
