@@ -199,3 +199,40 @@ print(sequence_type)
 #    max_sum = max(max_sum, current_sum)
 #
 #print(max_sum)
+
+
+# Ввод первого числа
+prev_num = int(input())
+sequence_type = None  # Изначально тип последовательности неизвестен
+
+# Ввод остальных чисел
+while True:
+    current_num = int(input())
+    
+    # Проверка на окончание последовательности
+    if current_num == -2 * 10**9:
+        break
+    
+    # Определение типа последовательности
+    if current_num > prev_num:
+        if sequence_type == None or sequence_type == 'ASCENDING' or sequence_type == 'WEAKLY ASCENDING':
+            sequence_type = 'ASCENDING'
+        else:
+            sequence_type = 'RANDOM'
+    elif current_num < prev_num:
+        if sequence_type == None or sequence_type == 'DESCENDING' or sequence_type == 'WEAKLY DESCENDING':
+            sequence_type = 'DESCENDING'
+        else:
+            sequence_type = 'RANDOM'
+    else:
+        if sequence_type == None or sequence_type == 'CONSTANT':
+            sequence_type = 'CONSTANT'
+        elif sequence_type == 'ASCENDING':
+            sequence_type = 'WEAKLY ASCENDING'
+        elif sequence_type == 'DESCENDING':
+            sequence_type = 'WEAKLY DESCENDING'
+    
+    prev_num = current_num
+
+# Вывод результата
+print(sequence_type)
