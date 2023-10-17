@@ -51,27 +51,25 @@
 #
 #
 ## Вложенные циклы. Задача 1.2 (3)
-
-
-# Функция для проверки, является ли число простым
-def is_prime(num):
-    if num <= 1:
-        return False
-    for i in range(2, int(num**0.5) + 1):
-        if num % i == 0:
+#
+#
+def check_prime(a):
+    for x in range(2, int(a ** 0.5) + 1):
+        if a % x == 0:
             return False
     return True
 
 
-N = int(input())
+def check_prime_divs(a):
+    for x in range(2, int(a ** 0.5) + 1):
+        if a % x == 0:
+            if check_prime(x) and check_prime(a // x):
+                return "Yes"
+    return "No"
 
-# Перебираем числа от 2 до N // 2 и проверяем, можно ли разложить N на два простых множителя
-for i in range(2, N // 2 + 1):
-    if is_prime(i) and is_prime(N // i):
-        print("Yes")
-        break
-else:
-    print("No")
+n = int(input())
+print(check_prime_divs(n))
+
 #
 #
 #
