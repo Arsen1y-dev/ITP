@@ -1,13 +1,19 @@
-a = int(input()) 
-b = int(input()) 
-c = int(input()) 
-d = int(input()) ** 2 
+from math import log, sqrt
 
-diag1 = a ** 2 + b ** 2 
-diag2 = a ** 2 + c ** 2 
-diag3 = b ** 2 + c ** 2 
+a, b, h = map(float, input().split())
 
-if diag1 <= d or diag2 <= d or diag3 <= d: 
-    print("Yes") 
-else: 
-    print("No") 
+a = round(a, 6)
+b = round(b, 6)
+h = round(h, 6)
+
+if a == 1:
+    print(f'{a:.6f}\tundefined')
+else:
+    x = a
+    while x <= b:
+        if x > 2:
+            y = log(x - 2) / sqrt(5 * x + 1)
+            print(f'{x:.6f}\t{y:.6f}')
+        else:
+            print(f'{x:.6f}\tundefined')
+        x = round(x + h, 6)
