@@ -53,23 +53,22 @@
 ## Вложенные циклы. Задача 1.2 (3)
 #
 #
-def check_prime(a):
-    for x in range(2, int(a ** 0.5) + 1):
-        if a % x == 0:
-            return False
-    return True
-
-
-def check_prime_divs(a):
-    for x in range(2, int(a ** 0.5) + 1):
-        if a % x == 0:
-            if check_prime(x) and check_prime(a // x):
-                return "Yes"
-    return "No"
-
-n = int(input())
-print(check_prime_divs(n))
-
+#def check_prime(a):
+#    for x in range(2, int(a ** 0.5) + 1):
+#        if a % x == 0:
+#            return False
+#    return True
+#
+#
+#def check_prime_divs(a):
+#    for x in range(2, int(a ** 0.5) + 1):
+#        if a % x == 0:
+#            if check_prime(x) and check_prime(a // x):
+#                return "Yes"
+#    return "No"
+#
+#n = int(input())
+#print(check_prime_divs(n))
 #
 #
 #
