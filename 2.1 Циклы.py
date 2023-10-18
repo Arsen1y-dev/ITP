@@ -14,7 +14,6 @@
 #    mass = int(input())
 #    masses.append(mass)
 #
-## Считываем грузоподъемность автомобиля
 #max_capacity = int(input())
 #
 ## Вычисляем общую массу всех предметов
@@ -40,7 +39,6 @@
 #        break
 #    product *= num
 #
-## Выводим произведение с точностью до 6 знаков после десятичной точки
 #print(f"{product:.6f}")
 #
 #
@@ -62,7 +60,6 @@
 #        max_modulus = modulus
 #        max_modulus_index = i
 #
-## Выводим индекс последнего числа с максимальным модулем
 #print(max_modulus_index)
 #
 #
@@ -72,11 +69,9 @@
 #
 #n = int(input())
 #
-## Инициализируем переменные для подсчета текущей длины подпоследовательности
 #current_length = 1
 #max_length = 1
 #
-## Считываем первый элемент
 #prev_element = int(input())
 #
 ## Считываем остальные элементы и проверяем их на равенство предыдущему
@@ -130,7 +125,6 @@
 ## Cписок для хранения простых множителей
 #prime_factors = []
 #
-## Начинаем с наименьшего простого числа (2)
 #current_factor = 2
 #
 #while N > 1:
@@ -201,19 +195,41 @@ print(sequence_type)
 #print(max_sum)
 
 
-# Ввод первого числа
-prev_num = int(input())
-sequence_type = None  # Изначально тип последовательности неизвестен
 
-# Ввод остальных чисел
+
+a = []
+while True:
+    current_num = int(input())
+    if current_num == abs(2 * 10**9):
+        break
+    a.append(current_num)
+for i in range(len(a)-1):
+    if a[i] > a[i+1]:
+        sequence_type = 'DESCENDING'
+    elif a[i] < a[i+1]:
+        sequence_type = 'ASCENDING'
+    elif a[i] == a[i+1]:
+        sequence_type = 'CONSTANT'
+    elif 
+
+
+# Вывод результата
+print(sequence_type)
+
+
+
+
+prev_num = int(input())
+sequence_type = None  
+
 while True:
     current_num = int(input())
     
-    # Проверка на окончание последовательности
+    
     if current_num == -2 * 10**9:
         break
     
-    # Определение типа последовательности
+   
     if current_num > prev_num:
         if sequence_type == None or sequence_type == 'ASCENDING' or sequence_type == 'WEAKLY ASCENDING':
             sequence_type = 'ASCENDING'
@@ -234,5 +250,4 @@ while True:
     
     prev_num = current_num
 
-# Вывод результата
 print(sequence_type)
