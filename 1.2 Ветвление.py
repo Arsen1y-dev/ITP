@@ -91,18 +91,18 @@
 ## Бассейн (6)
 #
 #
-# n = int(input()) 
-# m = int(input()) 
-# x = int(input()) 
-# y = int(input()) 
-# 
-# len_short = min(n, m) 
-# len_long = max(n, m) 
-# 
-# dist_to_short = min(x, len_short - x) 
-# dist_to_long = min(y, len_long - y) 
-# 
-# print(min(dist_to_short, dist_to_long)) 
+#n = int(input()) 
+#m = int(input()) 
+#x = int(input()) 
+#y = int(input()) 
+#
+#len_short = min(n, m) 
+#len_long = max(n, m) 
+#
+#dist_to_short = min(x, len_short - x) 
+#dist_to_long = min(y, len_long - y) 
+#
+#print(min(dist_to_short, dist_to_long)) 
 #
 #
 #
