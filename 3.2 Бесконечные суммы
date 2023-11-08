@@ -1,0 +1,14 @@
+h, e = map(float, input().split())
+
+x = 0.2
+
+while 1.8 + e > x:
+    y = x
+    y_sum = 0
+
+    while e < y:
+        y_sum += y
+        y = (1/13) * (x * y ** 2 + 2 * y)
+
+    print(f'{x:.8f}', f'{y_sum:.8f}')
+    x += h
