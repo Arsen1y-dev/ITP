@@ -86,17 +86,44 @@
 ## Строки. Задача 4
 #
 #
-c = input()
+#c = input()
+#
+#S = input()
+#
+#new_str = ''
+#for elem_c in S:
+#    if elem_c == c:
+#        new_str += c * 2
+#    else:
+#        new_str += elem_c
+#
+#print(new_str)
+#
+#
+#
+## Лишние пробелы
+#
+#
+#s = input()
+#
+#words = s.split()
+#
+#new_s = ' '.join(words)
+#
+#print(new_s)
+#
+#
+#
+## Количество адресов электронной почты
+#
+#
+n = int(input())
+count = 0
 
-S = input()
+for _ in range(n):
+    email = input().strip()  # Убираем лишние пробелы в начале и конце строки
+    if email.count('@') == 1 and '.' in email and email.index('@') > 0 and email.index('@') < len(email) - 1 and not email.endswith('.'):
+        count += 1
 
-new_str = ''
-for elem_c in S:
-    if elem_c == c:
-        new_str += c * 2
-    else:
-        new_str += elem_c
-
-
-print(new_str)
+print(count)
 
