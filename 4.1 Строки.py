@@ -117,13 +117,10 @@
 ## Количество адресов электронной почты
 #
 #
-n = int(input())
-count = 0
-
-for _ in range(n):
-    email = input().strip()  # Убираем лишние пробелы в начале и конце строки
-    if email.count('@') == 1 and '.' in email and email.index('@') > 0 and email.index('@') < len(email) - 1 and not email.endswith('.'):
-        count += 1
-
-print(count)
-
+str_quantity = int(input())
+cnt = 0
+for i in range(str_quantity):
+    s = input()
+    if s.count('@') == 1 and s[0] != '@' and s[-1] != '@' and '..' not in s:
+        cnt +=1
+print(cnt)
