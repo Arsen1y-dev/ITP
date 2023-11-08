@@ -72,6 +72,31 @@
 #
 ## Сумма цифр
 #
+#s = input()
 #
-s = input
+#sum = 0
+#
+#for elem in s:
+#    if elem.isdigit():
+#        sum += int(elem)
+#print(sum)
+#
+#
+#
+## Строки. Задача 4
+#
+#
+c = input()
+
+S = input()
+
+new_str = ''
+for elem_c in S:
+    if elem_c == c:
+        new_str += c * 2
+    else:
+        new_str += elem_c
+
+
+print(new_str)
 
