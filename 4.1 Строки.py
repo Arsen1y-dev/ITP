@@ -53,3 +53,25 @@
 ## Строки. Задача 3
 #
 #
+#s = input()
+#
+#
+#length = len(s)
+#
+#
+#if length % 2 == 0:
+#    middle = length // 2
+#    result = s[:middle - 1] + s[middle + 1:]
+#else:
+#    middle = length // 2
+#    result = s[:middle] + s[middle + 1:]
+#
+#print(result)
+#
+#
+#
+## Сумма цифр
+#
+#
+s = input
+
