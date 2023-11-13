@@ -1,8 +1,9 @@
-## 4.2 Файлы
-#
-#
-#
-#
-## Работа с текстовым файлом. Задача 3.7
-#
-#
+with open('output.txt', 'w') as out:
+    with open('input.txt', 'r') as f:
+        lines = f.readlines()
+        ans = ''
+        for line in lines:
+            line = line.replace('\n', '')
+            if line != '':
+                ans += line[0]
+        out.write(ans)
