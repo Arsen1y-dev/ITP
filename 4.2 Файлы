@@ -8,31 +8,47 @@
 #            if line != '':
 #                ans += line[0]
 #        out.write(ans)
-        
-        
-def find_line_with_char(file_path):
-    # Читаем символ из первой строки файла
-    with open(file_path, 'r') as file:
-        c = file.readline().strip()
-
-    # Просматриваем остальные строки файла
-    with open(file_path, 'r') as file:
-        # Пропускаем первую строку с символом c
-        next(file)
-        
-        # Ищем строку, начинающуюся с символа c
-        for line in file:
-            if line.startswith(c):
-                # Найдено совпадение, выводим строку и завершаем выполнение
-                print(line.strip())
-                return
-
-    # Если не найдено совпадение, оставляем файл пустым
-    with open('output.txt', 'w') as output_file:
-        pass
-
-# Указываем путь к файлу с входными данными
-file_path = 'input.txt'
-
-# Вызываем функцию для поиска строки с заданным символом
-find_line_with_char(file_path)
+#        
+#        
+#def find_line_with_char(file_path):
+#    # Читаем символ из первой строки файла
+#    with open(file_path, 'r') as file:
+#        c = file.readline().strip()
+#
+#    # Просматриваем остальные строки файла
+#    with open(file_path, 'r') as file:
+#        # Пропускаем первую строку с символом c
+#        next(file)
+#        
+#        # Ищем строку, начинающуюся с символа c
+#        for line in file:
+#            if line.startswith(c):
+#                # Найдено совпадение, выводим строку и завершаем выполнение
+#                print(line.strip())
+#                return
+#
+#    # Если не найдено совпадение, оставляем файл пустым
+#    with open('output.txt', 'w') as output_file:
+#        pass
+#
+## Указываем путь к файлу с входными данными
+#file_path = 'input.txt'
+#
+## Вызываем функцию для поиска строки с заданным символом
+#find_line_with_char(file_path)
+#
+#
+#
+## Работа с текстовым файлом. Задача 3.7
+#
+#
+## Работа с текстовым файлом. Задача 3.8
+with open('output.txt', 'w') as out:
+    with open('input.txt', 'r') as f:
+        lines = f.readlines()
+        ans = ''
+        for line in lines:
+            line = line.replace('\n', '')
+            if line != '':
+                ans += line[0]
+        out.write(ans)
