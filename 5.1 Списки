@@ -17,27 +17,43 @@
 #result_mas = [element * k for element in mas]
 #
 #
-#print(' '.join(map(str, result_mas)))
+#print(*result_mas)
 #
 #
 #
 ## Одномерные массивы. Задача 3.3
 #
 #
+#
+#N = int(input())
+#
+#arr = list(map(int, input().split()))
+#
+#max_element = max(arr)
+#max_index = arr.index(max_element)
+#
+#
+#arr[max_index] = -arr[max_index]
+#
+#
+#print(*arr)
+#
+#
+#
+## ЕГЭ С2-2
+#
+#
 
-N = int(input())
-
-# Считываем элементы массива
-arr = list(map(int, input().split()))
-
-# Находим максимальный элемент и его индекс
-max_element = max(arr)
-max_index = arr.index(max_element)
-
-# Заменяем максимальный элемент на противоположный по знаку
-arr[max_index] = -arr[max_index]
-
-# Выводим результат
-print(arr)
+n, m, k = map(int, input().split())
+numbers = list(map(int, input().split()))
 
 
+sum_result = 0
+
+
+for num in numbers:
+    if str(num)[-1] == str(k) and num % m != 0:
+        sum_result += num
+
+
+print(sum_result)
