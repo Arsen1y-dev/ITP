@@ -43,6 +43,7 @@
 ## ЕГЭ С2-2
 #
 #
+<<<<<<< HEAD
 #n, m, k = map(int, input().split())
 #numbers = list(map(int, input().split()))
 #
@@ -123,3 +124,19 @@ max_index = массив.index(max(массив[::-1]))
 массив[min_index:max_index + 1] = массив[min_index:max_index + 1][::-1]
 
 print(*массив)
+=======
+
+n, m, k = map(int, input().split())
+numbers = list(map(int, input().split()))
+
+
+sum_result = 0
+
+
+for num in numbers:
+    if str(num)[-1] == str(k) and num % m != 0:
+        sum_result += num
+
+
+print(sum_result)
+>>>>>>> cd452f0aa09831d9fbe85f88a4c0eb1de855df3d
