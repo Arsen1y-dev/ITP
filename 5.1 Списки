@@ -111,15 +111,34 @@
 #
 #
 #
-##  Изменение порядка
+## Расшифровка сдвигов
+#
+#
+
+#
+#
+#
+## Изменение порядка
 #
 #
 n = int(input())
-массив = list(map(int, input().split()))
+массив = [int(x) for x in input().split(" ")]
+mn_index = массив.index(min(массив))
+mx_index = len(массив) - 1 - массив[::-1].index(max(массив))
 
-min_index = массив.index(min(массив))
-max_index = массив.index(max(массив[::-1]))
+if mx_index < mn_index:
+    mx_index, mn_index = mn_index, mx_index
 
-массив[min_index:max_index + 1] = массив[min_index:max_index + 1][::-1]
+массив = массив[:mn_index] + массив[mn_index:mx_index + 1][::-1] + массив[mx_index + 1:]
+print(" ".join([str(x) for x in массив]))
 
-print(*массив)
+
+#
+#
+#
+
+
+#
+#
+#
+
