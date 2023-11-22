@@ -38,4 +38,15 @@
 #
 #
 #
+## Богатый дядюшка
+#
+#
+n = int(input())
+gift = 1
+total = 1
+for i in range(2, n + 1):
+    gift = gift * 2 + i
+    total += gift
+print(total)
+
 
