@@ -53,3 +53,32 @@ while True:
         print("Неверный выбор. Попробуйте еще раз.")
 
 print("Работа завершена.")
+
+
+while True:
+    user_input = input("Введите строку: ")
+    choice = input("Выберите действие (1 - показать строку и её длину, 2 - заменить строку, 3 - внести изменения, 4 - проверить буквы, 5 - подсчитать символы, 6 - завершить работу): ")
+
+    if choice == "1":
+        print(f"Текущая строка в двойных кавычках: \"{user_input}\", длина строки: {len(user_input)}")
+    elif choice == "2":
+        new_input = input("Введите новую строку: ")
+        user_input = new_input
+    elif choice == "3":
+        user_input = user_input.lstrip()
+        substring = input("Введите подстроку для замены: ")
+        user_input = user_input.replace(substring, "*")
+        print(f"Изменённая строка: {user_input}")
+    elif choice == "4":
+        if user_input[0] == user_input[-2]:
+            print("Первая и предпоследняя буквы совпадают!")
+        else:
+            print("Первая и предпоследняя буквы не совпадают.")
+    elif choice == "5":
+        unique_chars = set(user_input)
+        compare_input = input("Введите строку для сравнения: ")
+        unique_compare_chars = set(compare_input)
+        count = len([c for c in unique_chars if c not in unique_compare_chars])
+        print(f"Количество символов, не встречающихся во введённой строке: {count}")
+    elif choice == "6":
+        break
