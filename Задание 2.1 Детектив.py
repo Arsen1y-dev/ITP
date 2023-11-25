@@ -103,3 +103,109 @@ def accuse_suspects():
 
 # Начать игру с ввода
 intro()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def scene1():
+    print("Вы находитесь в гостиной.")
+    print("Доступные действия:")
+    print("1. Осмотреть тело")
+    print("2. Поговорить со свидетелями")
+    print("3. Осмотреть шкаф")
+    print("4. Перейти в другую комнату")
+    print("5. Выйти на улицу")
+    
+    choice = input("Выберите действие: ")
+    
+    if choice == "1":
+        examine_body()
+    elif choice == "2":
+        talk_to_witnesses()
+    elif choice == "3":
+        examine_closet()
+    elif choice == "4":
+        scene2()
+    elif choice == "5":
+        scene3()
+    else:
+        print("Неверный выбор. Попробуйте еще раз.")
+        scene1()
+
+def examine_body():
+    print("Осмотр тела...")
+    # Логика осмотра тела
+
+def talk_to_witnesses():
+    print("Разговор со свидетелями...")
+    # Логика разговора со свидетелями
+
+def examine_closet():
+    print("Осмотр шкафа...")
+    # Логика осмотра шкафа
+    print("Вы нашли фонарик!")
+    # Добавить фонарик в инвентарь игрока
+
+def scene2():
+    print("Вы находитесь на улице.")
+    print("Доступные действия:")
+    print("1. Осмотреть подвал")
+    print("2. Вернуться в дом")
+    
+    choice = input("Выберите действие: ")
+    
+    if choice == "1":
+        examine_basement()
+    elif choice == "2":
+        scene1()
+    else:
+        print("Неверный выбор. Попробуйте еще раз.")
+        scene2()
+
+def examine_basement():
+    print("Осмотр подвала...")
+    # Логика осмотра подвала (требуется фонарик)
+
+def scene3():
+    print("Вы вернулись в гостиную.")
+    print("Доступные действия:")
+    print("1. Сравнить отпечатки с отпечатками свидетелей")
+    print("2. Обвинить кого-то из свидетелей")
+    print("3. Продолжить расследование")
+    
+    choice = input("Выберите действие: ")
+    
+    if choice == "1":
+        compare_fingerprints()
+    elif choice == "2":
+        accuse()
+    elif choice == "3":
+        continue_investigation()
+    else:
+        print("Неверный выбор. Попробуйте еще раз.")
+        scene3()
+
+def compare_fingerprints():
+    print("Сравнение отпечатков...")
+    # Логика сравнения отпечатков
+
+def accuse():
+    print("Обвинение...")
+    # Логика обвинения
+
+def continue_investigation():
+    print("Продолжение расследования...")
+    # Логика продолжения расследования
+
+# Запуск игры
+scene1()
