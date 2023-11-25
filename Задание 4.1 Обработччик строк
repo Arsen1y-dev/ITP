@@ -1,0 +1,55 @@
+def show_string(s):
+    print(f'"{s}" ({len(s)})')
+
+def replace_string(s):
+    new_s = input("Введите новую строку: ")
+    return new_s
+
+def modify_string(s):
+    s = s.lstrip()
+    sub = input("Введите подстроку для замены: ")
+    s = s.replace(sub, "*")
+    return s
+
+def check_letters(s):
+    if len(s) > 1 and s[0] == s[-2]:
+        print("Первая и предпоследняя буквы совпадают.")
+    else:
+        print("Первая и предпоследняя буквы не совпадают.")
+
+def count_unique_chars(s):
+    new_s = input("Введите новую строку: ")
+    count = len(set(s) - set(new_s))
+    print(f"Количество уникальных символов в текущей строке: {count}")
+
+# Запрос начальной строки
+s = input("Введите строку: ")
+
+# Бесконечный цикл для выполнения действий, пока не выбрано завершение работы
+while True:
+    print("Выберите действие:")
+    print("1. Показать текущую строку")
+    print("2. Заменить текущую строку")
+    print("3. Внести изменения в текущую строку")
+    print("4. Проверить первую и предпоследнюю буквы строки")
+    print("5. Подсчитать количество уникальных символов в текущей строке")
+    print("6. Завершить работу")
+
+    choice = input("Введите номер действия: ")
+
+    if choice == "1":
+        show_string(s)
+    elif choice == "2":
+        s = replace_string(s)
+    elif choice == "3":
+        s = modify_string(s)
+    elif choice == "4":
+        check_letters(s)
+    elif choice == "5":
+        count_unique_chars(s)
+    elif choice == "6":
+        break
+    else:
+        print("Неверный выбор. Попробуйте еще раз.")
+
+print("Работа завершена.")
