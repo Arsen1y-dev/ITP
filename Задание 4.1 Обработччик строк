@@ -1,84 +1,35 @@
-def show_string(s):
-    print(f'"{s}" ({len(s)})')
-
-def replace_string(s):
-    new_s = input("Введите новую строку: ")
-    return new_s
-
-def modify_string(s):
-    s = s.lstrip()
-    sub = input("Введите подстроку для замены: ")
-    s = s.replace(sub, "*")
-    return s
-
-def check_letters(s):
-    if len(s) > 1 and s[0] == s[-2]:
-        print("Первая и предпоследняя буквы совпадают.")
-    else:
-        print("Первая и предпоследняя буквы не совпадают.")
-
-def count_unique_chars(s):
-    new_s = input("Введите новую строку: ")
-    count = len(set(s) - set(new_s))
-    print(f"Количество уникальных символов в текущей строке: {count}")
-
-# Запрос начальной строки
-s = input("Введите строку: ")
-
-# Бесконечный цикл для выполнения действий, пока не выбрано завершение работы
+s = input('Введите строку:')
 while True:
-    print("Выберите действие:")
-    print("1. Показать текущую строку")
-    print("2. Заменить текущую строку")
-    print("3. Внести изменения в текущую строку")
-    print("4. Проверить первую и предпоследнюю буквы строки")
-    print("5. Подсчитать количество уникальных символов в текущей строке")
-    print("6. Завершить работу")
-
-    choice = input("Введите номер действия: ")
-
-    if choice == "1":
-        show_string(s)
-    elif choice == "2":
-        s = replace_string(s)
-    elif choice == "3":
-        s = modify_string(s)
-    elif choice == "4":
-        check_letters(s)
-    elif choice == "5":
-        count_unique_chars(s)
-    elif choice == "6":
-        break
+    print('Выберите действие:')
+    print('1. Показать текущую строку в двойных кавычках и в скобках её длину.')
+    print('2. Заменить текущую строку, прочитав новую.')
+    print('3. Убрать пробельные символы из начала строки и заменить подстроку звёздочками.')
+    print('4. Проверить, совпадают ли первая и предпоследняя буквы строки.')
+    print('5. Подсчитать количество символов текущей строки, не встречающихся во введённой строке.')
+    print('6. Завершить работу.')
+    
+    choice = int(input("Введите номер действия от 1 до 6: "))
+    
+    if choice in (1, 2, 3, 4, 5, 6):
+        if choice == 1:
+            print(f'"{s}" ({len(s)} символов)')
+        elif choice == 2:
+            s = input('Введите новую строку: ')
+            print(s)
+        elif choice == 3:
+            s = s.lstrip().replace(input('Введите подстроку: '), '***')
+            print(s)
+        elif choice == 4:
+            if s[0] == s[-2]:
+                print('Первая и предпоследняя буквы совпадают.')
+            else:
+                print('Первая и предпоследняя буквы не совпадают.')
+        elif choice == 5:
+            s1 = input('Введите строку: ')
+            diff_chars = [char for char in s if char not in s1]
+            print('Количество символов текущей строки, не встречающихся во введённой строке:', len(diff_chars))
+        elif choice == 6:
+            print('Работа завершена.')
+            break
     else:
-        print("Неверный выбор. Попробуйте еще раз.")
-
-print("Работа завершена.")
-
-
-while True:
-    user_input = input("Введите строку: ")
-    choice = input("Выберите действие (1 - показать строку и её длину, 2 - заменить строку, 3 - внести изменения, 4 - проверить буквы, 5 - подсчитать символы, 6 - завершить работу): ")
-
-    if choice == "1":
-        print(f"Текущая строка в двойных кавычках: \"{user_input}\", длина строки: {len(user_input)}")
-    elif choice == "2":
-        new_input = input("Введите новую строку: ")
-        user_input = new_input
-    elif choice == "3":
-        user_input = user_input.lstrip()
-        substring = input("Введите подстроку для замены: ")
-        user_input = user_input.replace(substring, "*")
-        print(f"Изменённая строка: {user_input}")
-    elif choice == "4":
-        if user_input[0] == user_input[-2]:
-            print("Первая и предпоследняя буквы совпадают!")
-        else:
-            print("Первая и предпоследняя буквы не совпадают.")
-    elif choice == "5":
-        unique_chars = set(user_input)
-        compare_input = input("Введите строку для сравнения: ")
-        unique_compare_chars = set(compare_input)
-        count = len([c for c in unique_chars if c not in unique_compare_chars])
-        print(f"Количество символов, не встречающихся во введённой строке: {count}")
-    elif choice == "6":
-        break
+        print('Некорректный ввод. Пожалуйста, выберите действие от 1 до 6.')
