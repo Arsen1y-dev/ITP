@@ -7,3 +7,5 @@ for number in numbers:
         if number.count(digit) % 2 == 0:
             result.append(digit)
     print(''.join(result))
+
+
