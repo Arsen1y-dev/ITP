@@ -6,6 +6,5 @@ for number in numbers:
     for digit in unique_digits:
         if number.count(digit) % 2 == 0:
             result.append(digit)
-    print(''.join(result))
-
-
+    print(''.join(result))   
+    
