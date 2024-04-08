@@ -1,10 +1,10 @@
-numbers = input().split()
+nums = [int(x.strip("-")) for x in input().split()]
+res = {}
+for num in nums:
+    s_num = str(num)
+    cur_res = set(s_num)
+    for dig in s_num:
+        cur_res.add(dig) if dig not in cur_res else cur_res.remove(dig)
+    res[num] = cur_res
 
-for number in numbers:
-    unique_digits = set(number)
-    result = []
-    for digit in unique_digits:
-        if number.count(digit) % 2 == 0:
-            result.append(digit)
-    print(''.join(result))   
-    
+print(res)
