@@ -5,6 +5,7 @@ for num in nums:
     cur_res = set(s_num)
     for dig in s_num:
         cur_res.add(dig) if dig not in cur_res else cur_res.remove(dig)
-    res[num] = cur_res
+    res[num] = set(int(x) for x in cur_res)
 
-print(res)
+print("\n".join(": ".join((str(key),
+                           str(value if len(value) > 0 else "Таких цифр нет"))) for key, value in res.items()))

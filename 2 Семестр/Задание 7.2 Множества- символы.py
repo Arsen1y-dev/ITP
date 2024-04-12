@@ -1,14 +1,15 @@
-n = int(input())  # Количество строк
+number_of_strings = int(input("Enter the number of strings: "))
 
-for _ in range(n):
-    line = input()
-    intersection_set = set()
+for _ in range(number_of_strings):
+    string = input("Enter a string: ")
     
-    # Находим буквы в верхнем и нижнем регистре
-    for char in line:
+    letters_from_string = set()
+    
+    for char in string:
         if char.isalpha():
-            if char.lower() in intersection_set:  # Если символ уже есть в множестве, то добавляем его в результат
-                intersection_set.add(char)
+            if char.lower() in letters_from_string or char.upper() in letters_from_string:
+                letters_from_string.add(char.lower())
+                letters_from_string.add(char.upper())
     
-    result = sorted(list(intersection_set))  # Сортируем и преобразуем в список для вывода
-    print(''.join(result))
+    result = ''.join(sorted(letters_from_string))
+    print(result)
