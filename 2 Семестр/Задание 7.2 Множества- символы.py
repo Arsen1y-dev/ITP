@@ -1,15 +1,29 @@
-number_of_strings = int(input("Enter the number of strings: "))
+n = int(input('Введите количество строк: '))
+lines = [input(f'Введите строку {i + 1}/{n}: ') for i in range(n)]
 
-for _ in range(number_of_strings):
-    string = input("Enter a string: ")
-    
-    letters_from_string = set()
-    
-    for char in string:
-        if char.isalpha():
-            if char.lower() in letters_from_string or char.upper() in letters_from_string:
-                letters_from_string.add(char.lower())
-                letters_from_string.add(char.upper())
-    
-    result = ''.join(sorted(letters_from_string))
-    print(result)
+res = []
+for line in lines:
+    uppercase_l = set(char.lower() for char in line if char.isalpha() and char.isupper())
+    lowercase_l = set(char for char in line if char.isalpha() and char.islower())
+    res.append(sorted(uppercase_l.intersection(lowercase_l)))
+
+print(res)
+
+
+
+
+
+
+
+
+
+
+#1. Запрашивает у пользователя ввод количества строк (переменная n). 
+#2. Затем пользователю предлагается ввести каждую строку по очереди, и эти строки сохраняются в списке lines.
+#3. Далее создается пустой список res, в который будут добавляться результаты для каждой введенной строки.
+#4. Для каждой строки в списке lines выполняются следующие действия:
+#   - Создается множество uppercase_l, в котором содержатся все буквы верхнего регистра из данной строки.
+#   - Создается множество lowercase_l, в котором содержатся все буквы нижнего регистра из данной строки.
+#   - Из двух множеств uppercase_l и lowercase_l находится пересечение (буквы, которые присутствуют и в верхнем, и в нижнем регистре).
+#   - Результат пересечения добавляется в список res после сортировки.
+#5. Наконец, выводится список res, содержащий результаты для каждой введенной строки.
