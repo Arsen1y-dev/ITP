@@ -1,114 +1,131 @@
-import csv
-import argparse
 import sys
+import csv
 
-def check_parameters(file_name, num_boxes, rows, cols, num_items, items):
+def parse_arguments():
     """
-    Проверяет корректность введенных параметров и содержимого CSV-файла.
+    Парсинг аргументов командной строки и ввода через консоль.
+    Возвращает словарь параметров.
     """
-
-    errors = []
-
-    # Проверка количества ящиков
-    if not isinstance(num_boxes, int) or num_boxes <= 0:
-        errors.append(f"Некорректное значение для количества ящиков: {num_boxes}")
-
-    # Проверка размеров стеллажа
-    if not isinstance(rows, int) or rows <= 0:
-        errors.append(f"Некорректное значение для количества рядов: {rows}")
-    if not isinstance(cols, int) or cols <= 0:
-        errors.append(f"Некорректное значение для количества колонок: {cols}")
-
-    # Проверка количества предметов
-    if not isinstance(num_items, int) or num_items < 0:
-        errors.append(f"Некорректное значение для количества предметов: {num_items}")
-
-    # Проверка соответствия количества ящиков и размерам стеллажа
-    if num_boxes != rows * cols:
-        errors.append(f"Количество ящиков ({num_boxes}) не соответствует размеру стеллажа ({rows} x {cols})")
-
-    # Проверка количества предметов в CSV-файле
-    csv_items = None  # Инициализация за пределами блока try
-    try:
-        with open(file_name, 'r', encoding='utf-8') as csvfile:
-            reader = csv.reader(csvfile)
-            csv_items = sum(len(row) for row in reader)
-    except FileNotFoundError:
-        errors.append(f"Файл '{file_name}' не найден")
-    except Exception as e:
-        errors.append(f"Ошибка при чтении файла '{file_name}': {e}")
-
-    if num_items != csv_items:
-        errors.append(f"Количество предметов в CSV-файле ({csv_items}) не соответствует заданному значению ({num_items})")
-
-    return errors
-
-def formulate_principle(num_boxes, num_items):
-    """
-    Формулирует принцип Дирихле для заданных параметров.
-    """
-
-    if num_items >= num_boxes:
-        return f"Если в {num_boxes} ящиках лежит {num_items} предметов, то хотя бы в одном ящике лежит не менее {num_items // num_boxes + 1} предметов."
-    else:
-        return f"Если в {num_boxes} ящиках лежит {num_items} предметов, то пустых ящиков как минимум {num_boxes - num_items}."
-
-def main():
-    """
-    Основная функция программы.
-    """
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-f", "--file", default="input.csv", help="Имя CSV-файла")
-    parser.add_argument("-n", "--number", type=int, help="Общее количество ящиков")
-    parser.add_argument("-r", "--rows", type=int, help="Количество рядов")
-    parser.add_argument("-c", "--cols", type=int, help="Количество колонок")
-    parser.add_argument("-m", "--pigeons", type=int, help="Количество предметов")
-    parser.add_argument("items", nargs='*', help="Список предметов (разделенных запятыми или точкой с запятой)")
-
-    args = parser.parse_args()
-
-    file_name = args.file
-    num_boxes = args.number
-    rows = args.rows
-    cols = args.cols
-    num_items = args.pigeons
-    items = args.items
-
-    # Обработка ввода с консоли
-    if not all([num_boxes, rows, cols, num_items]):
+    params = {}
+    
+    # Парсинг аргументов командной строки
+    for arg in sys.argv[1:]:
+        if '=' in arg:
+            key, value = arg.split('=')
+            params[key.strip()] = value.strip()
+    
+    # Если параметры не заданы через аргументы командной строки,
+    # запрашиваем ввод через консоль
+    if not params:
         print("Введите параметры:")
         while True:
             try:
-                input_line = input()
-                if not input_line:
+                line = input().strip()
+                if line == '':
                     break
-                for param in input_line.split():
-                    key, value = param.split('=')
-                    if key == "f" or key == "file":
-                        file_name = value
-                    elif key == "n" or key == "number":
-                        num_boxes = int(value)
-                    elif key == "r" or key == "rows":
-                        rows = int(value)
-                    elif key == "c" or key == "cols":
-                        cols = int(value)
-                    elif key == "m" or key == "pigeons":
-                        num_items = int(value)
+                if '=' in line:
+                    key, value = line.split('=')
+                    params[key.strip()] = value.strip()
+                else:
+                    params['items'] = line.split(';')
+            except KeyboardInterrupt:
+                print("\nПрервано пользователем.")
+                sys.exit(1)
+    
+    return params
+
+def read_csv(file_name):
+    """
+    Чтение содержимого csv-файла.
+    Возвращает список списков (строк и столбцов).
+    """
+    rows = []
+    try:
+        with open(file_name, newline='') as csvfile:
+            reader = csv.reader(csvfile, delimiter=',')
+            for row in reader:
+                rows.append(row)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Файл {file_name} не найден.")
+    except Exception as e:
+        raise RuntimeError(f"Ошибка при чтении файла {file_name}: {str(e)}")
+    
+    return rows
+
+def validate_parameters(params):
+    """
+    Проверка корректности параметров.
+    """
+    errors = []
+
+    # Проверка наличия и корректности каждого параметра
+    if 'file' not in params:
+        params['file'] = 'input.csv'
+    else:
+        try:
+            read_csv(params['file'])
+        except Exception as e:
+            errors.append(f"Ошибка при чтении csv-файла '{params['file']}': {str(e)}")
+    
+    for param_name in ['n', 'rows', 'cols', 'm']:
+        if param_name not in params:
+            errors.append(f"Отсутствует обязательный параметр '{param_name}'")
+        else:
+            try:
+                int_value = int(params[param_name])
+                if int_value < 0:
+                    errors.append(f"Параметр '{param_name}' должен быть положительным числом")
             except ValueError:
-                print("Некорректный ввод. Попробуйте снова.")
-                continue
+                errors.append(f"Параметр '{param_name}' должен быть числом")
+    
+    # Проверка наличия предметов, если указан параметр 'm'
+    if 'm' in params and 'items' in params:
+        if len(params['items']) != int(params['m']):
+            errors.append(f"Количество предметов ({len(params['items'])}) не соответствует параметру 'm' ({params['m']})")
+    
+    return errors
 
-    # Проверка параметров и содержимого CSV-файла
-    errors = check_parameters(file_name, num_boxes, rows, cols, num_items, items)
-    if errors:
-        print("Ошибки:")
-        for error in errors:
-            print(error)
+def formulate_dirichlet_principle(params, rows):
+    """
+    Формулировка принципа Дирихле на основе данных.
+    """
+    n = int(params['n'])
+    m = int(params['m'])
+    rows_used = int(params['rows'])
+    cols_used = int(params['cols'])
+    
+    if cols_used == 0:
+        return "Стеллаж не содержит заполненных столбцов."
+    
+    # Проверка на одинаковое количество предметов в каждом ящике
+    first_box_items = len(rows[0]) if rows else 0
+    same_item_count = all(len(row) == first_box_items for row in rows[:rows_used])
+    
+    if same_item_count and first_box_items == m:
+        return f"Все {n} ящиков содержат одинаковое количество предметов: {m}."
+    elif m == 0:
+        return f"Хотя бы в одном ящике лежит не менее {m+1} предметов."
+    else:
+        return f"Пустых ящиков как минимум {n - rows_used}."
+
+def main():
+    try:
+        params = parse_arguments()
+        file_name = params.get('file', 'input.csv')
+        rows = read_csv(file_name)
+        
+        errors = validate_parameters(params)
+        if errors:
+            for error in errors:
+                print(error)
+            return
+        
+        principle = formulate_dirichlet_principle(params, rows)
+        print(principle)
+        
+    except Exception as e:
+        print(f"Ошибка: {str(e)}")
         sys.exit(1)
-
-    # Формулировка принципа Дирихле
-    print(formulate_principle(num_boxes, num_items))
 
 if __name__ == "__main__":
     main()
