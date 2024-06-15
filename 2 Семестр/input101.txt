@@ -1,0 +1,6 @@
+5
+alyaev dmitry petrovich 1965  1 5 2 3 4
+bondarenko michael sergeevich 1964  5 1 4 3 3
+pak stas mihaylovich 1967  2 1 1 1 1
+ivanov victor mihaylovich 1987  5 2 5 4 2
+klenov alexander alexandrovich 1996  5 4 3 3 5
