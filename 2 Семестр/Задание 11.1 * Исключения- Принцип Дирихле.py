@@ -1,130 +1,120 @@
-import sys
+import argparse
 import csv
+import math
+import sys
+import os
 
-def parse_arguments():
-    """
-    Парсинг аргументов командной строки и ввода через консоль.
-    Возвращает словарь параметров.
-    """
-    params = {}
-    
-    # Парсинг аргументов командной строки
-    for arg in sys.argv[1:]:
-        if '=' in arg:
-            key, value = arg.split('=')
-            params[key.strip()] = value.strip()
-    
-    # Если параметры не заданы через аргументы командной строки,
-    # запрашиваем ввод через консоль
-    if not params:
-        print("Введите параметры:")
-        while True:
-            try:
-                line = input().strip()
-                if line == '':
-                    break
-                if '=' in line:
-                    key, value = line.split('=')
-                    params[key.strip()] = value.strip()
-                else:
-                    params['items'] = line.split(';')
-            except KeyboardInterrupt:
-                print("\nПрервано пользователем.")
-                sys.exit(1)
-    
-    return params
-
-def read_csv(file_name):
-    """
-    Чтение содержимого csv-файла.
-    Возвращает список списков (строк и столбцов).
-    """
-    rows = []
+# Функция для чтения содержимого CSV-файла
+def read_csv_file(file_path):
+    if not os.path.isfile(file_path):  # Проверяем, существует ли файл
+        raise FileNotFoundError(f"Файл {file_path} не найден")
     try:
-        with open(file_name, newline='') as csvfile:
-            reader = csv.reader(csvfile, delimiter=',')
-            for row in reader:
-                rows.append(row)
-    except FileNotFoundError:
-        raise FileNotFoundError(f"Файл {file_name} не найден.")
+        with open(file_path, mode='r', encoding='utf-8') as file:
+            reader = csv.reader(file)
+            data = [row for row in reader]  # Читаем все строки файла в список
+        return data
     except Exception as e:
-        raise RuntimeError(f"Ошибка при чтении файла {file_name}: {str(e)}")
-    
-    return rows
+        raise Exception(f"Ошибка при чтении файла {file_path}: {e}")
 
-def validate_parameters(params):
-    """
-    Проверка корректности параметров.
-    """
+# Функция для запроса ввода у пользователя
+def get_input(prompt):
+    try:
+        return input(prompt)
+    except EOFError:
+        return None
+
+# Функция для разбора аргументов командной строки
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Принцип Дирихле')
+    parser.add_argument('--file', '-f', default='input.csv', help='Имя CSV-файла')
+    parser.add_argument('--number', '-n', type=int, help='Общее число ящиков')
+    parser.add_argument('--rows', type=int, help='Количество непустых рядов')
+    parser.add_argument('--cols', type=int, help='Количество непустых колонок')
+    parser.add_argument('--pigeons', '-m', type=int, help='Число предметов')
+    parser.add_argument('items', nargs='*', help='Перечень предметов')
+    args = parser.parse_args()
+
+    # Если какие-то параметры не указаны, запросить их у пользователя
+    if not args.number:
+        args.number = int(get_input("Введите общее число ящиков (number): "))
+    if not args.rows:
+        args.rows = int(get_input("Введите количество непустых рядов (rows): "))
+    if not args.cols:
+        args.cols = int(get_input("Введите количество непустых колонок (cols): "))
+    if not args.pigeons:
+        args.pigeons = int(get_input("Введите число предметов (pigeons): "))
+    if not args.items:
+        items_input = get_input("Введите предметы через запятую: ")
+        if items_input:
+            args.items = [item.strip() for item in items_input.split(',')]
+
+    return vars(args)  # Преобразуем аргументы в словарь и возвращаем его
+
+# Функция для проверки корректности параметров
+def validate_parameters(params, csv_data):
     errors = []
 
-    # Проверка наличия и корректности каждого параметра
-    if 'file' not in params:
-        params['file'] = 'input.csv'
-    else:
-        try:
-            read_csv(params['file'])
-        except Exception as e:
-            errors.append(f"Ошибка при чтении csv-файла '{params['file']}': {str(e)}")
-    
-    for param_name in ['n', 'rows', 'cols', 'm']:
-        if param_name not in params:
-            errors.append(f"Отсутствует обязательный параметр '{param_name}'")
-        else:
-            try:
-                int_value = int(params[param_name])
-                if int_value < 0:
-                    errors.append(f"Параметр '{param_name}' должен быть положительным числом")
-            except ValueError:
-                errors.append(f"Параметр '{param_name}' должен быть числом")
-    
-    # Проверка наличия предметов, если указан параметр 'm'
-    if 'm' in params and 'items' in params:
-        if len(params['items']) != int(params['m']):
-            errors.append(f"Количество предметов ({len(params['items'])}) не соответствует параметру 'm' ({params['m']})")
-    
-    return errors
+    n = params.get('number')
+    rows = params.get('rows')
+    cols = params.get('cols')
+    m = params.get('pigeons')
 
-def formulate_dirichlet_principle(params, rows):
-    """
-    Формулировка принципа Дирихле на основе данных.
-    """
-    n = int(params['n'])
-    m = int(params['m'])
-    rows_used = int(params['rows'])
-    cols_used = int(params['cols'])
-    
-    if cols_used == 0:
-        return "Стеллаж не содержит заполненных столбцов."
-    
-    # Проверка на одинаковое количество предметов в каждом ящике
-    first_box_items = len(rows[0]) if rows else 0
-    same_item_count = all(len(row) == first_box_items for row in rows[:rows_used])
-    
-    if same_item_count and first_box_items == m:
-        return f"Все {n} ящиков содержат одинаковое количество предметов: {m}."
-    elif m == 0:
-        return f"Хотя бы в одном ящике лежит не менее {m+1} предметов."
-    else:
-        return f"Пустых ящиков как минимум {n - rows_used}."
+    if n is None or n <= 0:
+        errors.append("Параметр 'number' (n) должен быть положительным числом")
+    if rows is None or rows <= 0:
+        errors.append("Параметр 'rows' должен быть положительным числом")
+    if cols is None or cols <= 0:
+        errors.append("Параметр 'cols' должен быть положительным числом")
+    if m is None or m < 0:
+        errors.append("Параметр 'pigeons' (m) должен быть неотрицательным числом")
 
+    total_boxes = len(csv_data) * len(csv_data[0]) if csv_data else 0
+    if total_boxes != n:
+        errors.append(f"Общее число ящиков (n) должно соответствовать количеству ячеек в CSV-файле ({total_boxes})")
+
+    non_empty_rows = sum(1 for row in csv_data if any(row))
+    non_empty_cols = sum(1 for col in zip(*csv_data) if any(col))
+
+    if non_empty_rows != rows:
+        errors.append(f"Количество непустых рядов должно быть равно {rows}, но найдено {non_empty_rows}")
+    if non_empty_cols != cols:
+        errors.append(f"Количество непустых колонок должно быть равно {cols}, но найдено {non_empty_cols}")
+
+    if not errors:
+        return True, None  # Если ошибок нет, возвращаем True и None
+    else:
+        return False, errors  # Если ошибки есть, возвращаем False и список ошибок
+
+# Функция для применения принципа Дирихле
+def dirichlet_principle(n, m):
+    if m >= n:
+        min_items_in_box = math.ceil(m / n)
+        return f"Если в {n} ящиках лежит {m} предметов, то хотя бы в одном ящике лежит не менее {min_items_in_box} предметов"
+    else:
+        empty_boxes = n - m
+        return f"Если в {n} ящиках лежит {m} предметов, то пустых ящиков как минимум {empty_boxes}"
+
+# Основная функция программы
 def main():
     try:
         params = parse_arguments()
-        file_name = params.get('file', 'input.csv')
-        rows = read_csv(file_name)
-        
-        errors = validate_parameters(params)
-        if errors:
+        csv_file = params['file']
+        csv_data = read_csv_file(csv_file)
+
+        valid, errors = validate_parameters(params, csv_data)
+        if not valid:
+            print("Ошибки в параметрах:")
             for error in errors:
-                print(error)
-            return
-        
-        principle = formulate_dirichlet_principle(params, rows)
-        print(principle)
-        
+                print(f"- {error}")
+            sys.exit(1)
+
+        n = params['number']
+        m = params['pigeons']
+
+        result = dirichlet_principle(n, m)
+        print(result)
     except Exception as e:
-        print(f"Ошибка: {str(e)}")
+        print(f"Произошла ошибка: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":
